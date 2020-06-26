@@ -1,0 +1,61 @@
+//단어변환
+
+import java.util.*;
+class Solution {
+    int answer = 0;
+    public int solution(String begin, String target, String[] words) {
+        
+        int[] visited=new int[words.length];
+        boolean a=false;
+        for(int i=0;i<words.length;i++){
+
+            if(target.equals(words[i]))
+                a=true;
+            }
+        if (a==false)
+            return 0;
+        if(begin==target)
+            return 0;
+        
+        dfs(visited,words,begin,target);
+        return answer;
+    }
+    private void dfs(int[] visited,String[] words,String begin,String target){
+        Stack <String> st=new Stack<String>();
+        int check=0;
+        int min=words.length;
+        int count=0;
+        String tmp;
+        st.push(begin);
+        
+        while(!st.isEmpty()){
+            tmp=st.pop();
+            for(int i=0;i<words.length;i++){
+                if(visited[i]==0){
+                    for(int j=0;j<begin.length();j++){
+                        if(tmp.charAt(j)==words[i].charAt(j))
+                            check+=1;
+                    }
+                    if(check==begin.length()-1){
+                        System.out.println(words[i]);
+                        visited[i]=1;
+                        check=0;
+                        st.push(words[i]);
+                    }
+                   
+                }
+                 if(tmp.equals(target)){
+                        System.out.println(count);
+                        if(count<min){
+                            min=count;
+                            count=0;
+                            break;
+                        }
+                    }
+                check=0;
+            }
+            count+=1;
+        }
+        answer=min;
+    }
+}
